@@ -143,7 +143,7 @@ int unicode_offset_koi8(int read_symbol)
        case 212:                       //ò
        case 213: unicode_offset = 878; //ó
                  break;
-       case 214: unicode_offset = 865; //æ
+       case 214: unicode_offset = 864; //æ
                  break;
        case 215: unicode_offset = 859; //â
                  break;
@@ -163,6 +163,60 @@ int unicode_offset_koi8(int read_symbol)
                  break;
        case 223: unicode_offset = 875; //ú
                  break;
+       //////////////////////////////////
+       case 224: unicode_offset = 846; //Þ
+                 break;
+       case 225:                       //À
+       case 226: unicode_offset = 815; //Á
+                 break;
+       case 227: unicode_offset = 835; //Ö
+                 break;
+       case 228:                       //Ä
+       case 229: unicode_offset = 816; //Å
+                 break;
+       case 230: unicode_offset = 830; //Ô
+                 break;
+       case 231: unicode_offset = 812; //Ã
+                 break;
+       case 232: unicode_offset = 829; //Õ
+                 break;
+       case 233:                       //È
+       case 234:                       //É
+       case 235:                       //Ê
+       case 236:                       //Ë
+       case 237:                       //Ì
+       case 238:                       //Í
+       case 239:                       //Î
+       case 240: unicode_offset = 815; //Ï
+                 break;
+       case 241: unicode_offset = 830; //ß
+                 break;
+       case 242:                       //Ð
+       case 243:                       //Ñ
+       case 244:                       //Ò
+       case 245: unicode_offset = 814; //Ó
+                 break;
+       case 246: unicode_offset = 800; //Æ
+                 break;
+       case 247: unicode_offset = 795; //Â
+                 break;
+       case 248: unicode_offset = 820; //Ü
+                 break;
+       case 249: unicode_offset = 818; //Û
+                 break;
+       case 250: unicode_offset = 797; //Ç
+                 break;
+       case 251: unicode_offset = 813; //Ø
+                 break;
+       case 252: unicode_offset = 817; //Ý
+                 break;
+       case 253: unicode_offset = 812; //Ù
+                 break;
+       case 254: unicode_offset = 809; //×
+                 break;
+       case 255: unicode_offset = 811; //Ú
+                 break;
+
     }
     return unicode_offset;
 }

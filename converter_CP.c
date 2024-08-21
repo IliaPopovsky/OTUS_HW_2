@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #define SIZE 200
 
 int unicode_offset_koi8(int read_symbol);
@@ -20,8 +21,11 @@ int main(int argc, char *argv[])
     int unicode_offset = 0;
     int flag_koi8 = 0;
 
-    if(argc < 2)
+    if(argc < 4)
     {
+       printf("Only %d arguments have been entered, but there should be 4\n", argc);
+       goto end;
+       /*
        fprintf(stdout, "Enter a name for the source file (or empty text to complete):\n");
        for (counter = 0; (read_symbol = getc(stdin)) != '\n'; counter++)
             name_source[counter] = read_symbol;
@@ -132,44 +136,33 @@ int main(int argc, char *argv[])
           for (counter = 0; (read_symbol = getc(stdin)) != '\n'; counter++)
               name_target[counter] = read_symbol;
        }
+       */
     }
     if(argc == 4)
     {
-       /*
-       fprintf(stdout, "Enter a name for the source file (or empty text to complete):\n");
-       for (counter = 0; (read_symbol = getc(stdin)) != '\n'; counter++)
-            name_source[counter] = read_symbol;
-       fprintf(stdout, "Enter a name for the source encoding (or empty text to complete):\n");
-       for (counter = 0; (read_symbol = getc(stdin)) != '\n'; counter++)
-            encoding_sourse[counter] = read_symbol;
-       fprintf(stdout, "Enter a name for the target file (or empty text to complete):\n");
-       for (counter = 0; (read_symbol = getc(stdin)) != '\n'; counter++)
-            name_target[counter] = read_symbol;
-       if(strcmp(encoding_sourse, "cp1251") == 0)
-          unicode_offset = 848;
-       if(strcmp(encoding_sourse, "koi8") == 0)
-          flag_koi8 = 1;
-       if(strcmp(encoding_sourse, "iso-8859-5") == 0)
-          unicode_offset = 864;
-       */
-
        if(strcmp(argv[2], "cp1251") == 0)
-          unicode_offset = 848;
-       if(strcmp(argv[2], "koi8") == 0)
-          flag_koi8 = 1;
-       if(strcmp(argv[2], "iso-8859-5") == 0)
-          unicode_offset = 864;
+           unicode_offset = 848;
+       else if(strcmp(argv[2], "koi8") == 0)
+                flag_koi8 = 1;
+            else if(strcmp(argv[2], "iso-8859-5") == 0)
+                     unicode_offset = 864;
+                 else
+                 {
+                     printf("The program %s cannot process the encoding %s\n", argv[0], argv[2]);
+                     goto end;
+                 }
+
        if(*argv[1] != '\0')
        {
           if ((fs = fopen(argv[1], "rb")) == NULL)
           {
             fprintf(stderr, "Can't open file %s\n", argv[1]);
-            goto end_circle2;
+            goto end;
           }
           if ((ft = fopen(argv[3], "wb")) == NULL)
           {
             fprintf(stderr, "Can't open file %s\n", argv[3]);
-            goto end_circle2;
+            goto end;
           }
           while((read_symbol = getc(fs)) != EOF)
           {
@@ -225,39 +218,14 @@ int main(int argc, char *argv[])
              }
           }
 
-
           if(fclose(fs) != 0)
             printf("Error closing file %s\n", argv[1]);
           if(fclose(ft) != 0)
             printf("Error closing file %s\n", argv[3]);
-          end_circle2:
-          counter = 0;
-          read_symbol = 0;
-          zero_byte = 0;
-          first_byte = 0;
-          second_byte = 0;
-          third_byte = 0;
-          unicode_offset = 0;
-          flag_koi8 = 0;
-          /*
-          memset(name_source, 0, SIZE);
-          memset(name_target, 0, SIZE);
-          memset(encoding_sourse, 0, SIZE);
-          */
-          /*
-          fprintf(stdout, "Enter a name for the source file (or empty text to complete):\n");
-          for (counter = 0; (read_symbol = getc(stdin)) != '\n'; counter++)
-              name_source[counter] = read_symbol;
-          fprintf(stdout, "Enter a name for the source encoding (or empty text to complete):\n");
-          for (counter = 0; (read_symbol = getc(stdin)) != '\n'; counter++)
-              encoding_sourse[counter] = read_symbol;
-          fprintf(stdout, "Enter a name for the target file (or empty text to complete):\n");
-          for (counter = 0; (read_symbol = getc(stdin)) != '\n'; counter++)
-              name_target[counter] = read_symbol;
-          */
        }
     }
-    printf("Hello world!\n");
+    end:
+    printf("This program exits!\n");
     return 0;
 }
 int unicode_offset_koi8(int read_symbol)

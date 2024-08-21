@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     int unicode_offset = 0;
     int flag_koi8 = 0;
 
-    if(argc < 4)
+    if(argc != 4)
     {
        printf("Only %d arguments have been entered, but there should be 4\n", argc);
        goto end;

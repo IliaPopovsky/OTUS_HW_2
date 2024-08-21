@@ -7,12 +7,8 @@ int unicode_offset_koi8(int read_symbol);
 
 int main(int argc, char *argv[])
 {
-    char name_target[SIZE] = {0};
-    char name_source[SIZE] = {0};
-    char encoding_sourse[SIZE] = {0};
     FILE *fs = NULL;
     FILE *ft = NULL;
-    int counter = 0;
     int read_symbol = 0;
     int zero_byte = 0;
     int first_byte = 0;
@@ -25,118 +21,6 @@ int main(int argc, char *argv[])
     {
        printf("Only %d arguments have been entered, but there should be 4\n", argc);
        goto end;
-       /*
-       fprintf(stdout, "Enter a name for the source file (or empty text to complete):\n");
-       for (counter = 0; (read_symbol = getc(stdin)) != '\n'; counter++)
-            name_source[counter] = read_symbol;
-       fprintf(stdout, "Enter a name for the source encoding (or empty text to complete):\n");
-       for (counter = 0; (read_symbol = getc(stdin)) != '\n'; counter++)
-            encoding_sourse[counter] = read_symbol;
-       fprintf(stdout, "Enter a name for the target file (or empty text to complete):\n");
-       for (counter = 0; (read_symbol = getc(stdin)) != '\n'; counter++)
-            name_target[counter] = read_symbol;
-       if(strcmp(encoding_sourse, "cp1251") == 0)
-          unicode_offset = 848;
-       if(strcmp(encoding_sourse, "koi8") == 0)
-          flag_koi8 = 1;
-       if(strcmp(encoding_sourse, "iso-8859-5") == 0)
-          unicode_offset = 864;
-       while (*name_source != '\0')
-       {
-          if ((fs = fopen(name_source, "rb")) == NULL)
-          {
-            fprintf(stderr, "Can't open file %s\n", name_source);
-            goto end_circle;
-          }
-          if ((ft = fopen(name_target, "wb")) == NULL)
-          {
-            fprintf(stderr, "Can't open file %s\n", name_target);
-            goto end_circle;
-          }
-          while((read_symbol = getc(fs)) != EOF)
-          {
-             if(flag_koi8 == 1)
-                unicode_offset = unicode_offset_koi8(read_symbol);
-             if(read_symbol >= 128)
-                read_symbol = read_symbol + unicode_offset;
-             if(0 <= read_symbol && read_symbol <= 127)
-             {
-                putc(read_symbol, ft);
-             }
-             if(128 <= read_symbol && read_symbol <= 2047)
-             {
-                zero_byte = (read_symbol & 63);
-                zero_byte = (zero_byte | 128);
-                first_byte = (read_symbol & 1984);
-                first_byte >>= 6;
-                first_byte = (first_byte | 192);
-                putc(first_byte, ft);
-                putc(zero_byte, ft);
-             }
-             if(2048 <= read_symbol && read_symbol <= 65535)
-             {
-                zero_byte = (read_symbol & 63);
-                zero_byte = (zero_byte | 128);
-                first_byte = (read_symbol & 4032);
-                first_byte >>= 6;
-                first_byte = (first_byte | 128);
-                second_byte = (read_symbol & 61440);
-                second_byte >>= 12;
-                second_byte = (second_byte | 224);
-                putc(second_byte, ft);
-                putc(first_byte, ft);
-                putc(zero_byte, ft);
-             }
-             if(65536 <= read_symbol && read_symbol <= 2097152)
-             {
-                zero_byte = (read_symbol & 63);
-                zero_byte = (zero_byte | 128);
-                first_byte = (read_symbol & 4032);
-                first_byte >>= 6;
-                first_byte = (first_byte | 128);
-                second_byte = (read_symbol & 258048);
-                second_byte >>= 12;
-                second_byte = (second_byte | 128);
-                third_byte = (read_symbol & 1835008);
-                third_byte >>= 18;
-                third_byte = (third_byte | 240);
-                putc(third_byte, ft);
-                putc(second_byte, ft);
-                putc(first_byte, ft);
-                putc(zero_byte, ft);
-             }
-          }
-
-
-          if(fclose(fs) != 0)
-            printf("Error closing file %s\n", name_source);
-          if(fclose(ft) != 0)
-            printf("Error closing file %s\n", name_target);
-          end_circle:
-          memset(name_source, 0, SIZE);
-          memset(name_target, 0, SIZE);
-          memset(encoding_sourse, 0, SIZE);
-          counter = 0;
-          read_symbol = 0;
-          zero_byte = 0;
-          first_byte = 0;
-          second_byte = 0;
-          third_byte = 0;
-          unicode_offset = 0;
-          flag_koi8 = 0;
-
-
-          fprintf(stdout, "Enter a name for the source file (or empty text to complete):\n");
-          for (counter = 0; (read_symbol = getc(stdin)) != '\n'; counter++)
-              name_source[counter] = read_symbol;
-          fprintf(stdout, "Enter a name for the source encoding (or empty text to complete):\n");
-          for (counter = 0; (read_symbol = getc(stdin)) != '\n'; counter++)
-              encoding_sourse[counter] = read_symbol;
-          fprintf(stdout, "Enter a name for the target file (or empty text to complete):\n");
-          for (counter = 0; (read_symbol = getc(stdin)) != '\n'; counter++)
-              name_target[counter] = read_symbol;
-       }
-       */
     }
     if(argc == 4)
     {
@@ -338,7 +222,6 @@ int unicode_offset_koi8(int read_symbol)
                  break;
        case 255: unicode_offset = 811; //Ú
                  break;
-
     }
     return unicode_offset;
 }
